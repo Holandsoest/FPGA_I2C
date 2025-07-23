@@ -1,0 +1,141 @@
+# Reading C:/intelFPGA_lite/18.1/modelsim_ase/tcl/vsim/pref.tcl
+# do I2C_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/18.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlib lib_buffer
+# vmap lib_buffer lib_buffer
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap lib_buffer lib_buffer 
+# Modifying modelsim.ini
+# vcom -2008 -work lib_buffer {C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:53:23 on Jul 20,2025
+# vcom -reportprogress 300 -2008 -work lib_buffer C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity AXI_buffer
+# -- Compiling architecture AXI_buffer_RTL of AXI_buffer
+# End time: 21:53:23 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:55:19 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity AXI_buffer
+# -- Compiling architecture AXI_buffer_RTL of AXI_buffer
+# End time: 21:55:19 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:55:20 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd 
+# -- Loading package STANDARD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(1): (vcom-1598) Library "lib_tb" not found.
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(5): (vcom-1136) Unknown identifier "lib_tb".
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(7): VHDL Compiler exiting
+# End time: 21:55:20 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:55:26 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity tb_clock_generator
+# -- Compiling architecture tb_clock_generator_RTL of tb_clock_generator
+# End time: 21:55:26 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_pkg.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:55:36 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling package i2c_pkg
+# -- Compiling package body i2c_pkg
+# -- Loading package i2c_pkg
+# End time: 21:55:36 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:55:37 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd(8): (vcom-1598) Library "lib_i2c" not found.
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd(9): (vcom-1136) Unknown identifier "lib_i2c".
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd(13): VHDL Compiler exiting
+# End time: 21:55:38 on Jul 20,2025, Elapsed time: 0:00:01
+# Errors: 3, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:55:44 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd 
+# -- Loading package STANDARD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(1): (vcom-1598) Library "lib_tb" not found.
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(5): (vcom-1136) Unknown identifier "lib_tb".
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(7): VHDL Compiler exiting
+# End time: 21:55:44 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:11 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity tb_clock_generator
+# -- Compiling architecture tb_clock_generator_RTL of tb_clock_generator
+# End time: 21:56:11 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:56:19 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd 
+# -- Loading package STANDARD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(1): (vcom-1598) Library "lib_tb" not found.
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(5): (vcom-1136) Unknown identifier "lib_tb".
+# ** Error: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd(7): VHDL Compiler exiting
+# End time: 21:56:19 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
+vlib lib_tb
+vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 21:57:06 on Jul 20,2025
+# vcom -reportprogress 300 -work work C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity tb_clock_generator
+# -- Compiling architecture tb_clock_generator_RTL of tb_clock_generator
+# End time: 21:57:06 on Jul 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Modified modelsim.ini
