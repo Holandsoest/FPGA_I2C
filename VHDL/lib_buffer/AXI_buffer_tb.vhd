@@ -102,7 +102,7 @@ begin
             reset           <= p_reset;
             data_in_valid   <= p_valid;
             data_out_ready  <= p_ready;
-            if p_reset = '1' or p_valid = '0' then 
+            if p_reset = '1' or p_valid = '0' or p_ready = '0' then 
                 data_in(C_data_width-1 downto C_data_width-4) <= x"F"; -- F for fail.
             else
                 data_in(C_data_width-1 downto C_data_width-4) <= x"0"; -- 0 for valid.

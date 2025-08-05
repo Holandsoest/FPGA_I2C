@@ -34,47 +34,20 @@ begin
             S_ihasdata <= '0';
         elsif rising_edge(I_clk) then
 
-            -- A more comprehensive statement would be as below, but it would require `i_hasdata` to be a variable.
-            -- if S_ihasdata = '1' and I_data_out_ready = '1' then -- The next block received the data.
-            --     S_ihasdata <= '0';
-            -- end if;
-            -- if S_ihasdata = '0' and I_data_in_valid = '1' then -- We store the received data.
-            --     O_data_out <= I_data_in;
-            --     S_ihasdata <= '1';
-            -- end if;
-
-            -- But if we use a truth table then we can do it in one go: -- TODO: Check this truth table, logic changed and this may have been broken.
-            --     INPUTS
-            --┌────────S_ihasdata
-            --│┌───────I_data_in_valid
-            --││┌──────I_data_out_ready
-            --│││  OUTPUTS
-            --│││ ┌────O_data_out_valid
-            --│││ │┌───O_data_in_ready
-            --│││ ││┌──O_data_out <= I_data_in
-            --│││ │││┌─S_ihasdata
-            --001 0100
-            --001 0100
-            --010 0111
-            --011 0111
-            --100 1001
-            --101 1110
-            --110 1001
-            --111 1111
-            if ((S_ihasdata = '1' and I_data_out_ready = '1') or S_ihasdata = '0') and I_data_in_valid = '1' then -- TODO: new logic must be tested still.
+            if S_ihasdata = '1' and I_data_out_ready = '1' and I_data_in_valid = '1' then-- We no longer have data + we store the received data and we now have data.
                 O_data_out <= I_data_in;
+            elsif S_ihasdata = '1' and I_data_out_ready = '1' then -- We no longer have data.
+                S_ihasdata <= '0';
+            elsif S_ihasdata = '0' and I_data_in_valid = '1' then -- we store the received data and we now have data.
+                O_data_out <= I_data_in;
+                S_ihasdata <= '1';
             end if;
-            S_ihasdata <= I_data_in_valid or (S_ihasdata and (not I_data_out_ready)); -- We have data when we get data or when we have data and don't give it. -- TODO: This just does not work on paper, but does work in practice.
 
         end if;
     end process;
 
-
-
     --Combinatorial logic
-    O_data_in_ready  <= '1' when I_reset = '0' and (S_ihasdata = '0' or I_data_out_ready = '0') else '0';
+    O_data_in_ready  <= '1' when I_reset = '0' and (S_ihasdata = '0' or I_data_out_ready = '1') else '0';
     O_data_out_valid <= '1' when I_reset = '0' and  S_ihasdata = '1'                            else '0';
-
-
 
 end architecture AXI_buffer_RTL;

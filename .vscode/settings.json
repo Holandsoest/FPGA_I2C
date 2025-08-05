@@ -1,9 +1,14 @@
 {
     "cSpell.words": [
+        "aloem",
         "downto",
         "hasdata",
         "ihasdata",
+        "modelsim",
+        "MODELSIM",
         "noupdate",
+        "novopt",
+        "twentynm",
         "vcom",
         "vlib",
         "vsim"
