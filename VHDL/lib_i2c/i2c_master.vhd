@@ -12,8 +12,8 @@ use lib_i2c.i2c_pkg.all;
 
 entity i2c_master is
     generic(
-        GC_clk_speed        : natural := 50000000; --The speed of the I_clk in Hz, simulation default: 50 MHz.
-        GC_i2c_clock_speed  : natural :=   100000  --Standard Mode 100 kHz. Fast Mode 400 kHz. Fast Mode Plus 1 MHz. High-Speed Mode 3.4 MHz.
+        GC_clk_speed        : natural := 50_000_000; --The speed of the I_clk in Hz, simulation default: 50 MHz.
+        GC_i2c_clock_speed  : natural :=    100_000  --Standard Mode 100 kHz. Fast Mode 400 kHz. Fast Mode Plus 1 MHz. High-Speed Mode 3.4 MHz.
     );
     port(
         I_clk               : in  std_logic;
