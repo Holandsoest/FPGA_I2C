@@ -1,7 +1,10 @@
 # Everything
-#*/
+*/
+*
 
-# Eccept Quartus project files
+# Except Quartus project files
 !*.qpf
 !*.qsf
 !*.qws
+
+# And except the following files
