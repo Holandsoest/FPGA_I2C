@@ -30,6 +30,7 @@ eval vsim $TOP_LEVEL_NAME
 # Run the simulation.
 do lib_i2c_wave.do
 run -a
+wave zoom full
 
 
 # Report success to the shell.

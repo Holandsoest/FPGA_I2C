@@ -1,5 +1,11 @@
 -- vhdl-linter-disable type-resolved
---This pretty boi is in charge of the entire clock dividing, state checking, and the communication. He is a bit big, but don't tell him he will cry.
+
+
+--This pretty boi is in charge of the entire clock dividing, state checking, and the communication. He is a bit big, but don't tell him he will cry.--TODO: oh no, language.
+
+
+-- ACK/NACK: If a NACK gets received, and the data is an address, then the system will attempt to resend the address 3 times, and then issue a STOP EVENT.--TODO: this whole shit.
+--                                       If it is not an address, then it will just issue a STOP EVENT, since it already forgot all the previous data.   --WARNING: I AM CRYING
 
 
 
@@ -43,25 +49,25 @@ end entity i2c_master;
 
 architecture i2c_master_RTL of i2c_master is
     --SCL
-    constant C_i2c_clock_divider        : natural := (GC_clk_frequency * 4   / GC_i2c_clk_frequency);
+    constant C_i2c_clock_divider        : natural := (GC_clk_frequency / GC_i2c_clk_frequency);--WARNING: There is unsafety here, if the clock is not a multiple of the i2c clock, then it will not work. Use MATH lib.
     constant C_i2c_clock_divider_1_4    : natural := C_i2c_clock_divider / 4 * 1;
     constant C_i2c_clock_divider_3_4    : natural := C_i2c_clock_divider / 4 * 3;
     signal S_i2c_clock_counter          : natural range 0 to C_i2c_clock_divider-1;
 
     --SDA
-    signal S_i2c_data_counter_next      : natural range 0 to 10;
-    signal S_i2c_data_counter_this      : natural range 0 to 10;
+    signal S_i2c_data_counter_next      : natural range 0 to 11;
+    signal S_i2c_data_counter_this      : natural range 0 to 11;
 
-
+    --Full AXI buffers
     signal S_data_in         : std_logic_vector(9 downto 0);
         --"in" dictates that the data is coming from the (AXI) buffer and out trough the I2C bus.
         --Bit 9-8: Metadata, 00 = data, 01 = address, 10 = read-response, 11 = UNUSED.
         --Bit 7-0: Data bits
     signal S_data_in_hasdata : std_logic;
-    signal S_data_out        : std_logic_vector(7 downto 0); -- TODO: Responces are not implemented yet.
+    signal S_data_out        : std_logic_vector(7 downto 0); -- TODO: Responses are not implemented yet.
         --"out" dictates that the data is coming from the I2C bus and out trough the (AXI) buffer.
         --Bit 7-0: Data bits
-    signal S_data_out_hasdata: std_logic; -- TODO: Responces are not implemented yet.
+    signal S_data_out_hasdata: std_logic; -- TODO: Responses are not implemented yet.
 
     signal S_start_ready : std_logic; -- send by SDA process, shows the data is ready to start the I2C communication, and requests the SCL process to set the clock.
     signal S_start_done  : std_logic; -- send by SCL process in response, the SDA can now set S_started to begin.
@@ -81,9 +87,10 @@ begin
             S_start_done                <= '0';
         elsif rising_edge(I_clk) then
 
-            if S_start_ready = '1' then
-                S_i2c_clock_counter <= C_i2c_clock_divider-1; -- This will give the SDA enough time to start the start condition 1 clock cycle from now.
+            if S_start_ready = '1' and (S_i2c_clock_counter = C_i2c_clock_divider_1_4 or S_i2c_clock_counter = C_i2c_clock_divider-2) then
+                S_i2c_clock_counter <= C_i2c_clock_divider-2; -- This will give the SDA enough time to start the start condition 2 clock cycles from now.
                 S_start_done <= '1'; --We can start the SDA process.
+                O_I2C_SCL <= '1';
             else -- TODO: is the clock really nesseary if we dont have data on the axi-bus? We can save some power here.
                 S_start_done <= '0'; --We are not starting.
 
@@ -116,6 +123,7 @@ begin
 
             O_I2C_SDA          <= '1';
         elsif rising_edge(I_clk) then
+
 
             if S_started = '1' and S_i2c_clock_counter = 0 then
                 S_i2c_data_counter_this <= S_i2c_data_counter_next;
@@ -150,43 +158,55 @@ begin
                     when  9 => -- ACK/NACK -- TODO: Read and respond at i2c_clk_fall_event
                         O_I2C_SDA <= '1';
                         S_i2c_data_counter_next <= 10;
-                        S_data_in_hasdata <= '0';--We exhausted this buffer
                     when 10 => -- Wait for interrupts at target to finish
                         O_I2C_SDA <= '1';
-                        if S_data_in_hasdata = '1' and S_data_in(9 downto 8) /= "01" then
-                            S_i2c_data_counter_next <=  1; -- We can continue with next piece of data. 
-                        else
-                            S_i2c_data_counter_next <=  0; -- We stop after not having data or when getting a new address.
-                            S_started          <= '0';
-                        end if;
-
-                    when others =>
+                        -- Transition →0 & →1 explained below, they require being one clock cycle earlier, to allow our system to grab the next data.
+                        S_data_in_hasdata <= '0';--We exhausted this buffer
+                    when others => 
                         O_I2C_SDA <= '1';
-                        report "i2c_master: S_i2c_data_counter_next is out of bounds, this should never happen." severity failure;
                         S_i2c_data_counter_next <=  0;
-                        S_started          <= '0';
                 end case;
 
-            --Get data if I have none, but only accept an address if we have not started yet, and if we did 
-            elsif S_data_in_hasdata = '0' and I_data_in_valid = '1' and (S_started = '1' xor I_data_in(8) = '1') then--TODO: imnot seeing straight check this furture me.
+
+            -- Transition 10→0 and 10→1, that is processed just before the next i2c clock cycle.
+            elsif S_started = '1' and S_i2c_clock_counter = C_i2c_clock_divider-1 and S_i2c_data_counter_this = 10 then
+                if S_data_in_hasdata = '1' and S_data_in(9 downto 8) /= "01" then
+                    S_i2c_data_counter_next <= 1; -- If we do have data and it is not an address, We can continue with next piece of data.
+                elsif S_data_in_hasdata = '1' and S_data_in(9 downto 8) = "01" then
+                    S_i2c_data_counter_next <= 0; -- If we do have data and it is an address, We can continue with the start condition.
+                else
+                    S_i2c_data_counter_next <= 0;
+                    S_started               <='0';-- If we don't have data, we move to the start condition, but wait for the next data.
+                end if;
+
+
+            --Get data if I have none, but only accept an address if we have not started yet, and if we did start then we accept any.
+            elsif S_data_in_hasdata = '0' and I_data_in_valid = '1' and (S_started = '1' or I_data_in(9 downto 8) = "01") then
                 S_data_in <= I_data_in;
                 S_data_in_hasdata <= '1';
-                S_start_ready <= not S_started; --Request SCL process to restart the clock, at least when it did not start already.
+                if I_data_in(9 downto 8) = "01" then    S_start_ready <= '1'; --Request SCL process to restart the clock, if it is an address.
+                else                                    S_start_ready <= '0'; --Otherwise we don't need to restart the clock.
+                end if;
+
 
             -- We are ready to start, but is the bus free?
-            elsif S_start_ready = '1' and S_start_done = '1' then -- Response on ^ comment.
+            elsif S_start_ready = '1' and S_start_done = '1' then -- Response on "Request SCL process to restart the clock" comment from the SCL process.
                 if S_start_timer = 0 and I_I2C_SDA = '1' and I_I2C_SCL = '1' then
                     S_start_ready <= '0';
                     S_started     <= '1';
-                    S_start_timer <= C_i2c_clock_divider/2; -- Reset the timer, so that it can count down to 0.
+                    S_start_timer <= C_i2c_clock_divider/2; --  Reset the timer, so that it can count down to 0.
                 elsif I_I2C_SDA = '1' and I_I2C_SCL = '1' then
                     S_start_timer <= S_start_timer - 1; -- Count down the timer, so that it can count down to 0.
                 else
-                    S_start_timer <= C_i2c_clock_divider/2; -- Reset the timer, so that it can count down to 0.
+                    S_start_timer <= C_i2c_clock_divider/2; --  Reset the timer, so that it can count down to 0.
                 end if;
             end if;
-        end if;
+        end if;--rising_edge(I_clk)
     end process SDA;
+
+
     --Combinatorial logic
-    O_data_in_ready <= '1' when I_reset = '0' and S_data_in_hasdata = '0' and (S_started = '0' or S_i2c_clock_counter /= 0) else '0';--TODO: imnot seeing straight check this furture me.
+    O_data_in_ready <= '1' when I_reset = '0' and S_data_in_hasdata = '0' and (S_started = '0' or S_i2c_clock_counter /= 0) else '0';
+
+
 end architecture i2c_master_RTL;

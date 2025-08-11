@@ -7,6 +7,7 @@ add wave -noupdate                 -group Shared -divider "Control" -height 5
 add wave -noupdate -radix unsigned -group Shared i2c_tb/C_clk_frequency
 add wave -noupdate -radix time     -group Shared i2c_tb/C_clk_period
 add wave -noupdate -radix unsigned -group Shared i2c_tb/C_i2c_clk_frequency
+add wave -noupdate -radix time     -group Shared i2c_tb/C_i2c_clk_period
 add wave -noupdate                 -group Shared i2c_tb/reset
 add wave -noupdate                 -group Shared i2c_tb/clk
 
@@ -49,10 +50,11 @@ add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_da
 
 
 TreeUpdate [SetDefaultTree]
-wave cursor add -time 105ns -name "Start" -lock 1
+wave cursor add -time 100ns    -name "Start"    -lock 1
+wave cursor add -time 645000ns -name "End M1:1" -lock 1
 quietly wave cursor active 1
 configure wave -namecolwidth 185
-configure wave -valuecolwidth 65
+configure wave -valuecolwidth 55
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1
 configure wave -snapdistance 10
@@ -64,6 +66,5 @@ configure wave -gridperiod 1
 configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
-configure wave 
-wave zoom range 105 {650000 ns}
+configure wave
 update

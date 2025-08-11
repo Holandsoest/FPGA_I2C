@@ -18,6 +18,7 @@ architecture i2c_tb_RTL of i2c_tb is
     signal reset             : std_logic := '1';
 
     constant C_i2c_clk_frequency : natural  := 1_000_000; -- Standard Mode 100 kHz -- Fast Mode 400 kHz -- Fast Mode Plus 1 MHz -- High-Speed Mode 3.4 MHz.
+    constant C_i2c_clk_period    : time := 1 sec / C_i2c_clk_frequency;
     signal I2C_SDA           : std_logic;
     signal I2C_SCL           : std_logic;
     
@@ -65,9 +66,9 @@ begin
     stimulus_M1: process
         procedure submit is begin
             M1_in_valid <= '1';
-            wait until M1_in_ready = '1' and rising_edge(clk) for C_clk_period * (C_clk_frequency/C_i2c_clk_frequency*10) * 10;
+            wait until M1_in_ready = '1' and rising_edge(clk) for C_i2c_clk_period*100;
             if not (M1_in_ready = '1' and rising_edge(clk)) then error_count <= error_count + 1; end if;
-            assert  M1_in_ready = '1' and rising_edge(clk) report "System never accepted the data in >> 100 clock-cycles." severity failure;
+            assert  M1_in_ready = '1' and rising_edge(clk) report "System never accepted the data in > 100 i2c-clock-cycles." severity failure;
             M1_in_valid <= '0';
         end procedure submit;
         procedure que_address(
@@ -108,10 +109,10 @@ begin
         que_data   (x"0B");
         que_data   (x"0C");
         que_data   (x"0D");
-        que_listen;--(x"0E");--FIXME: This test is not correct / fully valid
-        que_listen;--(x"0F");--FIXME: This test is not correct / fully valid
+        que_listen;--(x"0E");
+        que_listen;--(x"0F");
 
-        que_address(x"10"); --FIXME: FAILURE, i cannot get these.
+        que_address(x"10");
         que_data   (x"11");
         que_data   (x"12");
         que_data   (x"13");
@@ -125,8 +126,8 @@ begin
         que_data   (x"1B");
         que_data   (x"1C");
         que_data   (x"1D");
-        que_listen;--(x"1E");--FIXME: This test is not correct / fully valid
-        que_listen;--(x"1F");--FIXME: This test is not correct / fully valid
+        que_listen;--(x"1E");
+        que_listen;--(x"1F");
 
         que_address(x"20");
         que_data   (x"21");
@@ -147,10 +148,12 @@ begin
         
         que_address(x"30");
         que_address(x"40");
-
-
-
         stimulus_M1_done <= true;
+
+        --flush the queue
+        wait until M1_in_valid = '0' and M1_in_ready = '1' and rising_edge(clk) for C_i2c_clk_period*100;
+        wait for C_i2c_clk_period *10;
+
         report "Stimulus M1 done." severity failure;
         wait;
     end process stimulus_M1;
