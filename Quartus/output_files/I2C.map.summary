@@ -1,11 +1,11 @@
-Analysis & Synthesis Status : Successful - Mon Jul 21 23:13:32 2025
+Analysis & Synthesis Status : Successful - Wed Aug 06 16:56:30 2025
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 Revision Name : I2C
-Top-level Entity Name : AXI_buffer
+Top-level Entity Name : i2c_master
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 33
-Total pins : 70
+Total registers : 38
+Total pins : 28
 Total virtual pins : 0
 Total block memory bits : 0
 Total DSP Blocks : 0

@@ -8,183 +8,15 @@
 					"strict" : false
 				},
 				{
-					"name" : "O_data_out_valid",
+					"name" : "O_I2C_SDA",
 					"strict" : false
 				},
 				{
-					"name" : "O_data_out[0]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[1]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[2]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[3]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[4]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[5]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[6]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[7]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[8]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[9]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[10]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[11]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[12]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[13]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[14]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[15]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[16]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[17]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[18]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[19]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[20]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[21]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[22]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[23]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[24]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[25]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[26]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[27]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[28]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[29]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[30]",
-					"strict" : false
-				},
-				{
-					"name" : "O_data_out[31]",
+					"name" : "O_I2C_SCL",
 					"strict" : false
 				},
 				{
 					"name" : "I_reset",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_out_ready",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in_valid",
-					"strict" : false
-				},
-				{
-					"name" : "I_clk",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[0]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[1]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[2]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[3]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[4]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[5]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[6]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[7]",
 					"strict" : false
 				},
 				{
@@ -196,91 +28,51 @@
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[10]",
+					"name" : "I_data_in_valid",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[11]",
+					"name" : "I_clk",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[12]",
+					"name" : "I_I2C_SDA",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[13]",
+					"name" : "I_I2C_SCL",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[14]",
+					"name" : "I_data_in[2]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[15]",
+					"name" : "I_data_in[0]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[16]",
+					"name" : "I_data_in[3]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[17]",
+					"name" : "I_data_in[1]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[18]",
+					"name" : "I_data_in[6]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[19]",
+					"name" : "I_data_in[4]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[20]",
+					"name" : "I_data_in[7]",
 					"strict" : false
 				},
 				{
-					"name" : "I_data_in[21]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[22]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[23]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[24]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[25]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[26]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[27]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[28]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[29]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[30]",
-					"strict" : false
-				},
-				{
-					"name" : "I_data_in[31]",
+					"name" : "I_data_in[5]",
 					"strict" : false
 				}
 			]

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for I2C
-Mon Jul 21 23:13:32 2025
+Wed Aug 06 16:56:31 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -14,10 +14,12 @@ Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. General Register Statistics
-  9. Parameter Settings for User Entity Instance: Top-level Entity: |AXI_buffer
- 10. Post-Synthesis Netlist Statistics for Top Partition
- 11. Elapsed Time Per Partition
- 12. Analysis & Synthesis Messages
+  9. Inverted Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Parameter Settings for User Entity Instance: Top-level Entity: |i2c_master
+ 12. Post-Synthesis Netlist Statistics for Top Partition
+ 13. Elapsed Time Per Partition
+ 14. Analysis & Synthesis Messages
 
 
 
@@ -43,14 +45,14 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                  ;
 +---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Mon Jul 21 23:13:32 2025       ;
+; Analysis & Synthesis Status     ; Successful - Wed Aug 06 16:56:30 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; I2C                                         ;
-; Top-level Entity Name           ; AXI_buffer                                  ;
+; Top-level Entity Name           ; i2c_master                                  ;
 ; Family                          ; Cyclone V                                   ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 33                                          ;
-; Total pins                      ; 70                                          ;
+; Total registers                 ; 38                                          ;
+; Total pins                      ; 28                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
 ; Total DSP Blocks                ; 0                                           ;
@@ -69,7 +71,7 @@ refer to the applicable agreement for further details.
 ; Option                                                                          ; Setting            ; Default Value      ;
 +---------------------------------------------------------------------------------+--------------------+--------------------+
 ; Device                                                                          ; 5CSEMA5F31C6       ;                    ;
-; Top-level entity name                                                           ; AXI_buffer         ; I2C                ;
+; Top-level entity name                                                           ; i2c_master         ; I2C                ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; Maximum processors allowed for parallel compilation                             ; All                ;                    ;
 ; VHDL Show LMF Mapping Messages                                                  ; Off                ;                    ;
@@ -169,13 +171,14 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                       ;
-+-----------------------------------+-----------------+-----------------+-------------------------------------------------------------------------+------------+
-; File Name with User-Entered Path  ; Used in Netlist ; File Type       ; File Name with Absolute Path                                            ; Library    ;
-+-----------------------------------+-----------------+-----------------+-------------------------------------------------------------------------+------------+
-; ../VHDL/lib_buffer/AXI_buffer.vhd ; yes             ; User VHDL File  ; C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd ; lib_buffer ;
-+-----------------------------------+-----------------+-----------------+-------------------------------------------------------------------------+------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                ;
++----------------------------------+-----------------+-----------------+----------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                         ; Library ;
++----------------------------------+-----------------+-----------------+----------------------------------------------------------------------+---------+
+; ../VHDL/lib_i2c/i2c_pkg.vhd      ; yes             ; User VHDL File  ; C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_pkg.vhd    ; lib_i2c ;
+; ../VHDL/lib_i2c/i2c_master.vhd   ; yes             ; User VHDL File  ; C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd ; lib_i2c ;
++----------------------------------+-----------------+-----------------+----------------------------------------------------------------------+---------+
 
 
 +-------------------------------------------------------------+
@@ -183,25 +186,25 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+---------------+
 ; Resource                                    ; Usage         ;
 +---------------------------------------------+---------------+
-; Estimate of Logic utilization (ALMs needed) ; 17            ;
+; Estimate of Logic utilization (ALMs needed) ; 33            ;
 ;                                             ;               ;
-; Combinational ALUT usage for logic          ; 4             ;
-;     -- 7 input functions                    ; 0             ;
-;     -- 6 input functions                    ; 0             ;
-;     -- 5 input functions                    ; 0             ;
-;     -- 4 input functions                    ; 0             ;
-;     -- <=3 input functions                  ; 4             ;
+; Combinational ALUT usage for logic          ; 54            ;
+;     -- 7 input functions                    ; 3             ;
+;     -- 6 input functions                    ; 7             ;
+;     -- 5 input functions                    ; 12            ;
+;     -- 4 input functions                    ; 4             ;
+;     -- <=3 input functions                  ; 28            ;
 ;                                             ;               ;
-; Dedicated logic registers                   ; 33            ;
+; Dedicated logic registers                   ; 38            ;
 ;                                             ;               ;
-; I/O pins                                    ; 70            ;
+; I/O pins                                    ; 28            ;
 ;                                             ;               ;
 ; Total DSP Blocks                            ; 0             ;
 ;                                             ;               ;
 ; Maximum fan-out node                        ; I_reset~input ;
-; Maximum fan-out                             ; 35            ;
-; Total fan-out                               ; 246           ;
-; Average fan-out                             ; 1.39          ;
+; Maximum fan-out                             ; 39            ;
+; Total fan-out                               ; 389           ;
+; Average fan-out                             ; 2.63          ;
 +---------------------------------------------+---------------+
 
 
@@ -210,7 +213,7 @@ refer to the applicable agreement for further details.
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
-; |AXI_buffer                ; 4 (4)               ; 33 (33)                   ; 0                 ; 0          ; 70   ; 0            ; |AXI_buffer         ; AXI_buffer  ; lib_buffer   ;
+; |i2c_master                ; 54 (54)             ; 38 (38)                   ; 0                 ; 0          ; 28   ; 0            ; |i2c_master         ; i2c_master  ; lib_i2c      ;
 +----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -220,23 +223,43 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 33    ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 33    ;
+; Total registers                              ; 38    ;
+; Number of registers using Synchronous Clear  ; 11    ;
+; Number of registers using Synchronous Load   ; 11    ;
+; Number of registers using Asynchronous Clear ; 37    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 32    ;
+; Number of registers using Clock Enable       ; 20    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; O_I2C_SCL~reg0                         ; 3       ;
+; Total number of inverted registers = 1 ;         ;
++----------------------------------------+---------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+; 5:1                ; 11 bits   ; 33 LEs        ; 0 LEs                ; 33 LEs                 ; Yes        ; |i2c_master|S_i2c_start_allowed_counter[10] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------+
+
+
 +----------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: Top-level Entity: |AXI_buffer ;
-+----------------+-------+---------------------------------------------------+
-; Parameter Name ; Value ; Type                                              ;
-+----------------+-------+---------------------------------------------------+
-; GC_data_width  ; 32    ; Signed Integer                                    ;
-+----------------+-------+---------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |i2c_master ;
++----------------------+----------+------------------------------------------+
+; Parameter Name       ; Value    ; Type                                     ;
++----------------------+----------+------------------------------------------+
+; GC_clk_frequency     ; 50000000 ; Signed Integer                           ;
+; GC_i2c_clk_frequency ; 100000   ; Signed Integer                           ;
++----------------------+----------+------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -245,17 +268,29 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 33                          ;
-;     CLR               ; 1                           ;
-;     ENA CLR           ; 32                          ;
-; arriav_lcell_comb     ; 4                           ;
-;     normal            ; 4                           ;
-;         2 data inputs ; 1                           ;
-;         3 data inputs ; 3                           ;
-; boundary_port         ; 70                          ;
+; arriav_ff             ; 38                          ;
+;     CLR               ; 7                           ;
+;     CLR SLD           ; 11                          ;
+;     ENA               ; 1                           ;
+;     ENA CLR           ; 8                           ;
+;     ENA CLR SCLR      ; 11                          ;
+; arriav_lcell_comb     ; 55                          ;
+;     arith             ; 22                          ;
+;         1 data inputs ; 22                          ;
+;     extend            ; 3                           ;
+;         7 data inputs ; 3                           ;
+;     normal            ; 30                          ;
+;         0 data inputs ; 1                           ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 3                           ;
+;         3 data inputs ; 2                           ;
+;         4 data inputs ; 4                           ;
+;         5 data inputs ; 12                          ;
+;         6 data inputs ; 7                           ;
+; boundary_port         ; 28                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 1.00                        ;
-; Average LUT depth     ; 0.11                        ;
+; Max LUT depth         ; 3.00                        ;
+; Average LUT depth     ; 2.13                        ;
 +-----------------------+-----------------------------+
 
 
@@ -264,7 +299,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:01     ;
 +----------------+--------------+
 
 
@@ -274,30 +309,53 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
-    Info: Processing started: Mon Jul 21 23:13:06 2025
+    Info: Processing started: Wed Aug 06 16:55:57 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off I2C -c I2C
 Info (20030): Parallel compilation is enabled and will use 2 of the 2 processors detected
+Info (12021): Found 2 design units, including 1 entities, in source file /users/wolf/dropbox/projecten/fpga_i2c/vhdl/lib_i2c/i2c_tb.vhd
+    Info (12022): Found design unit 1: i2c_tb-i2c_tb_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_tb.vhd Line: 11
+    Info (12023): Found entity 1: i2c_tb File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_tb.vhd Line: 8
+Info (12021): Found 2 design units, including 0 entities, in source file /users/wolf/dropbox/projecten/fpga_i2c/vhdl/lib_i2c/i2c_pkg.vhd
+    Info (12022): Found design unit 1: i2c_pkg (lib_i2c) File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_pkg.vhd Line: 3
+    Info (12022): Found design unit 2: i2c_pkg-body File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_pkg.vhd Line: 7
+Info (12021): Found 2 design units, including 1 entities, in source file /users/wolf/dropbox/projecten/fpga_i2c/vhdl/lib_i2c/i2c_master.vhd
+    Info (12022): Found design unit 1: i2c_master-i2c_master_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 44
+    Info (12023): Found entity 1: i2c_master File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 14
 Info (12021): Found 2 design units, including 1 entities, in source file /users/wolf/dropbox/projecten/fpga_i2c/vhdl/lib_tb/clock_generator.vhd
     Info (12022): Found design unit 1: tb_clock_generator-tb_clock_generator_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd Line: 14
     Info (12023): Found entity 1: tb_clock_generator File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_tb/clock_generator.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file /users/wolf/dropbox/projecten/fpga_i2c/vhdl/lib_buffer/axi_buffer_tb.vhd
-    Info (12022): Found design unit 1: AXI_buffer_tb-AXI_buffer_tb_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd Line: 12
-    Info (12023): Found entity 1: AXI_buffer_tb File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd Line: 9
+    Info (12022): Found design unit 1: AXI_buffer_tb-AXI_buffer_tb_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd Line: 13
+    Info (12023): Found entity 1: AXI_buffer_tb File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer_tb.vhd Line: 10
 Info (12021): Found 2 design units, including 1 entities, in source file /users/wolf/dropbox/projecten/fpga_i2c/vhdl/lib_buffer/axi_buffer.vhd
-    Info (12022): Found design unit 1: AXI_buffer-AXI_buffer_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd Line: 49
-    Info (12023): Found entity 1: AXI_buffer File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd Line: 28
-Info (12127): Elaborating entity "AXI_buffer" for the top level hierarchy
+    Info (12022): Found design unit 1: AXI_buffer-AXI_buffer_RTL File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd Line: 27
+    Info (12023): Found entity 1: AXI_buffer File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_buffer/AXI_buffer.vhd Line: 7
+Info (12127): Elaborating entity "i2c_master" for the top level hierarchy
+Warning (10541): VHDL Signal Declaration warning at i2c_master.vhd(30): used implicit default value for signal "O_data_out_valid" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 30
+Warning (10541): VHDL Signal Declaration warning at i2c_master.vhd(31): used implicit default value for signal "O_data_out" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "O_data_out_valid" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 30
+    Warning (13410): Pin "O_data_out[0]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[1]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[2]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[3]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[4]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[5]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[6]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
+    Warning (13410): Pin "O_data_out[7]" is stuck at GND File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 31
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 106 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 36 input pins
-    Info (21059): Implemented 34 output pins
-    Info (21061): Implemented 36 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 4856 megabytes
-    Info: Processing ended: Mon Jul 21 23:13:32 2025
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:28
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "I_data_out_ready" File: C:/Users/Wolf/Dropbox/Projecten/FPGA_I2C/VHDL/lib_i2c/i2c_master.vhd Line: 29
+Info (21057): Implemented 90 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 16 input pins
+    Info (21059): Implemented 12 output pins
+    Info (21061): Implemented 62 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 14 warnings
+    Info: Peak virtual memory: 4870 megabytes
+    Info: Processing ended: Wed Aug 06 16:56:31 2025
+    Info: Elapsed time: 00:00:34
+    Info: Total CPU time (on all processors): 00:00:30
 
 

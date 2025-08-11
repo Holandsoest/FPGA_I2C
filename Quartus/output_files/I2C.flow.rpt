@@ -1,5 +1,5 @@
 Flow report for I2C
-Mon Jul 21 23:13:32 2025
+Wed Aug 06 16:56:31 2025
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
 
 
@@ -40,16 +40,16 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------+
 ; Flow Summary                                                                  ;
 +---------------------------------+---------------------------------------------+
-; Flow Status                     ; Successful - Mon Jul 21 23:13:32 2025       ;
+; Flow Status                     ; Successful - Wed Aug 06 16:56:30 2025       ;
 ; Quartus Prime Version           ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
 ; Revision Name                   ; I2C                                         ;
-; Top-level Entity Name           ; AXI_buffer                                  ;
+; Top-level Entity Name           ; i2c_master                                  ;
 ; Family                          ; Cyclone V                                   ;
 ; Device                          ; 5CSEMA5F31C6                                ;
 ; Timing Models                   ; Final                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 33                                          ;
-; Total pins                      ; 70                                          ;
+; Total registers                 ; 38                                          ;
+; Total pins                      ; 28                                          ;
 ; Total virtual pins              ; 0                                           ;
 ; Total block memory bits         ; 0                                           ;
 ; Total DSP Blocks                ; 0                                           ;
@@ -67,7 +67,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 07/21/2025 23:13:08 ;
+; Start date & time ; 08/06/2025 16:56:00 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; I2C                 ;
 +-------------------+---------------------+
@@ -78,21 +78,21 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+--------------------------------------+-------------+----------------+
 ; Assignment Name                     ; Value                                  ; Default Value                        ; Entity Name ; Section Id     ;
 +-------------------------------------+----------------------------------------+--------------------------------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 52242722633.175313238710244            ; --                                   ; --          ; --             ;
+; COMPILER_SIGNATURE_ID               ; 52242722633.175449215909784            ; --                                   ; --          ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                   ; --                                   ; --          ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim-Altera (VHDL)                 ; <None>                               ; --          ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                   ; --                                   ; --          ; eda_simulation ;
 ; MAX_CORE_JUNCTION_TEMP              ; 85                                     ; --                                   ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP              ; 0                                      ; --                                   ; --          ; --             ;
 ; NUM_PARALLEL_PROCESSORS             ; All                                    ; --                                   ; --          ; --             ;
-; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --                                   ; AXI_buffer  ; Top            ;
-; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --                                   ; AXI_buffer  ; Top            ;
-; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --                                   ; AXI_buffer  ; Top            ;
+; PARTITION_COLOR                     ; -- (Not supported for targeted family) ; --                                   ; i2c_master  ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; -- (Not supported for targeted family) ; --                                   ; i2c_master  ; Top            ;
+; PARTITION_NETLIST_TYPE              ; -- (Not supported for targeted family) ; --                                   ; i2c_master  ; Top            ;
 ; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                    ; --                                   ; --          ; --             ;
 ; POWER_PRESET_COOLING_SOLUTION       ; No Heat Sink With Still Air            ; --                                   ; --          ; --             ;
 ; PROJECT_IP_REGENERATION_POLICY      ; ALWAYS_REGENERATE_IP                   ; SKIP_REGENERATING_IP_IF_HDL_MODIFIED ; --          ; --             ;
 ; PROJECT_OUTPUT_DIRECTORY            ; output_files                           ; --                                   ; --          ; --             ;
-; TOP_LEVEL_ENTITY                    ; AXI_buffer                             ; I2C                                  ; --          ; --             ;
+; TOP_LEVEL_ENTITY                    ; i2c_master                             ; I2C                                  ; --          ; --             ;
 ; VHDL_INPUT_VERSION                  ; VHDL_2008                              ; VHDL_1993                            ; --          ; --             ;
 ; VHDL_SHOW_LMF_MAPPING_MESSAGES      ; Off                                    ; --                                   ; --          ; --             ;
 +-------------------------------------+----------------------------------------+--------------------------------------+-------------+----------------+
@@ -103,8 +103,8 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:26     ; 1.0                     ; 4856 MB             ; 00:00:27                           ;
-; Total                ; 00:00:26     ; --                      ; --                  ; 00:00:27                           ;
+; Analysis & Synthesis ; 00:00:33     ; 1.0                     ; 4870 MB             ; 00:00:30                           ;
+; Total                ; 00:00:33     ; --                      ; --                  ; 00:00:30                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

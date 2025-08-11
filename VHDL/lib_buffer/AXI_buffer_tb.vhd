@@ -1,3 +1,4 @@
+-- vhdl-linter-disable type-resolved
 --TODO: `28` is hardcoded magic number, but is defined as `C_data_width-4`. 
 
 library ieee, lib_buffer, lib_tb;
@@ -65,7 +66,7 @@ begin
             O_data_out       => data_out_1buf
         );
 --    nine_buffer: for i in 1 to 9 generate
---        bbuffer: entity lib_buffer.AXI_buffer
+--        buffer: entity lib_buffer.AXI_buffer
 --            generic map(
 --                GC_data_width => C_data_width
 --            )
