@@ -27,7 +27,7 @@ architecture i2c_tb_RTL of i2c_tb is
     signal M1_in_data   : std_logic_vector(9 downto 0);
     signal M1_out_ready : std_logic;
     signal M1_out_valid : std_logic;
-    signal M1_out_data  : std_logic_vector(7 downto 0);
+    signal M1_out_data  : std_logic_vector(8 downto 0);
     signal M1_SCL       : std_logic;
     signal M1_SDA       : std_logic;
 
@@ -109,6 +109,8 @@ begin
         que_data   (x"0B");
         que_data   (x"0C");
         que_data   (x"0D");
+        que_data   (x"0E");
+        que_data   (x"0F");
         que_listen;--(x"0E");
         que_listen;--(x"0F");
 

@@ -17,33 +17,33 @@ add wave -noupdate                 -group Shared i2c_tb/I2C_SCL
 
 
 
-add wave -noupdate                 -group Master1 -divider "In  side (to axi bus)" -height 5
+add wave -noupdate                 -group Master1 -divider "From AXI-buffers" -height 5
 add wave -noupdate                 -group Master1 -color "yellow" i2c_tb/M1/O_data_in_ready
 add wave -noupdate                 -group Master1 -color "blue"   i2c_tb/M1/I_data_in_valid
 add wave -noupdate -radix hex      -group Master1 -color "blue"   i2c_tb/M1/I_data_in
-#add wave -noupdate                 -group Master1 -color "blue"   i2c_tb/M1/I_data_out_ready
-#add wave -noupdate                 -group Master1 -color "yellow" i2c_tb/M1/O_data_out_valid
-#add wave -noupdate -radix hex      -group Master1 -color "yellow" i2c_tb/M1/O_data_out
+add wave -noupdate -radix hex      -group Master1 -color "purple" i2c_tb/M1/S_data_in
+add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_data_in_hasdata
+add wave -noupdate                 -group Master1 -divider "To AXI-buffers" -height 5
+add wave -noupdate                 -group Master1 -color "blue"   i2c_tb/M1/I_data_out_ready
+add wave -noupdate                 -group Master1 -color "yellow" i2c_tb/M1/O_data_out_valid
+add wave -noupdate -radix hex      -group Master1 -color "yellow" i2c_tb/M1/O_data_out
+add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_data_out
 
-add wave -noupdate                 -group Master1 -divider "Out side (to i2c bus)" -height 5
+add wave -noupdate                 -group Master1 -divider "I2C" -height 5
 add wave -noupdate -radix hex      -group Master1 -color "yellow" i2c_tb/M1/O_I2C_SDA
 add wave -noupdate -radix hex      -group Master1 -color "yellow" i2c_tb/M1/O_I2C_SCL
-#add wave -noupdate -radix hex      -group Master1 -color "blue"   i2c_tb/M1/I_I2C_SDA
-#add wave -noupdate -radix hex      -group Master1 -color "blue"   i2c_tb/M1/I_I2C_SCL
+add wave -noupdate -radix hex      -group Master1 -color "blue"   i2c_tb/M1/I_I2C_SDA
+add wave -noupdate -radix hex      -group Master1 -color "blue"   i2c_tb/M1/I_I2C_SCL
 
-add wave -noupdate                 -group Master1 -divider "Signals" -height 5
+add wave -noupdate                 -group Master1 -divider "Other signals" -height 5
 add wave -noupdate -radix unsigned -group Master1 -color "purple" i2c_tb/M1/S_i2c_clock_counter
 add wave -noupdate -radix unsigned -group Master1 -color "purple" i2c_tb/M1/S_i2c_data_counter_this
-add wave -noupdate -radix unsigned -group Master1 -color "purple" i2c_tb/M1/S_i2c_data_counter_next
+add wave -noupdate -radix unsigned -group Master1 -color "gray" i2c_tb/M1/S_i2c_data_counter_next
+add wave -noupdate -radix unsigned -group Master1 -color "purple" i2c_tb/M1/S_i2c_NACK_retry_counter
 add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_start_ready
 add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_start_done
 add wave -noupdate -radix unsigned -group Master1 -color "purple" i2c_tb/M1/S_start_timer
 add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_started
-add wave -noupdate -radix hex      -group Master1 -color "purple" i2c_tb/M1/S_data_in
-add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_data_in_hasdata
-#add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_data_out
-#add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_data_out_hasdata
-#add wave -noupdate -radix hex      -group Master1 -color "purple" i2c_tb/M1/S_latest_device_address
 
 
 
