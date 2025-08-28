@@ -15,6 +15,7 @@ vlib lib_i2c
 # Compile the files
 # DUT C
 vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $PROJECT_DIR/VHDL/lib_i2c/i2c_pkg.vhd -work lib_i2c
+vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $PROJECT_DIR/VHDL/lib_i2c/i2c_slave.vhd -work lib_i2c
 vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $PROJECT_DIR/VHDL/lib_i2c/i2c_master.vhd -work lib_i2c
 # IP compilation
 # TB compilation
@@ -30,7 +31,8 @@ eval vsim $TOP_LEVEL_NAME
 # Run the simulation.
 do lib_i2c_wave.do
 run -a
-wave zoom full
+#wave zoom full
+wave zoom range {171425 ns} {216425 ns}
 
 
 # Report success to the shell.

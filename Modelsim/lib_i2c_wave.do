@@ -27,7 +27,7 @@ add wave -noupdate                 -group Master1 -divider "To AXI-buffers" -hei
 add wave -noupdate                 -group Master1 -color "blue"   i2c_tb/M1/I_data_out_ready
 add wave -noupdate                 -group Master1 -color "yellow" i2c_tb/M1/O_data_out_valid
 add wave -noupdate -radix hex      -group Master1 -color "yellow" i2c_tb/M1/O_data_out
-add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_data_out
+add wave -noupdate -radix hex      -group Master1 -color "purple" i2c_tb/M1/S_data_out
 
 add wave -noupdate                 -group Master1 -divider "I2C" -height 5
 add wave -noupdate -radix hex      -group Master1 -color "yellow" i2c_tb/M1/O_I2C_SDA
@@ -47,11 +47,33 @@ add wave -noupdate                 -group Master1 -color "purple" i2c_tb/M1/S_st
 
 
 
+add wave -noupdate                 -group Slave1 -color "yellow" i2c_tb/S1/O_I2C_SDA
+add wave -noupdate                 -group Slave1 -divider "To AXI-registers" -height 5
+add wave -noupdate                 -group Slave1 -color "blue"   i2c_tb/S1/I_data_out_ready
+add wave -noupdate                 -group Slave1 -color "yellow" i2c_tb/S1/O_data_out_valid
+add wave -noupdate -radix hex      -group Slave1 -color "yellow" i2c_tb/S1/O_data_out
+add wave -noupdate                 -group Slave1 -divider "From AXI-registers" -height 5
+add wave -noupdate                 -group Slave1 -color "yellow" i2c_tb/S1/O_data_response_ready
+add wave -noupdate                 -group Slave1 -color "blue"   i2c_tb/S1/I_data_response_valid
+add wave -noupdate -radix hex      -group Slave1 -color "blue"   i2c_tb/S1/I_data_response
+add wave -noupdate                 -group Slave1 -divider "Internal signals." -height 5
+add wave -noupdate -radix hex      -group Slave1 -color "purple" i2c_tb/S1/S_i2c_state
+add wave -noupdate -radix hex      -group Slave1 -color "purple" i2c_tb/S1/S_i2c_incoming_data
+add wave -noupdate -radix hex      -group Slave1 -color "gray"   i2c_tb/S1/S_i2c_incoming_data_flip
+add wave -noupdate -radix hex      -group Slave1 -color "purple" i2c_tb/S1/S_i2c_incoming_data_counter
+add wave -noupdate -radix hex      -group Slave1 -color "purple" i2c_tb/S1/S_i2c_inactivity_counter
+add wave -noupdate                 -group Slave1 -color "purple" i2c_tb/S1/S_i2c_sda_address_match
+add wave -noupdate                 -group Slave1 -color "purple" i2c_tb/S1/S_i2c_sda_data_match
+add wave -noupdate                 -group Slave1 -color "purple" i2c_tb/S1/S_i2c_sda_response
+add wave -noupdate                 -group Slave1 -color "purple" i2c_tb/S1/RS1_responses
+
+
+
 
 
 TreeUpdate [SetDefaultTree]
-wave cursor add -time 100ns    -name "Start"    -lock 1
-wave cursor add -time 645000ns -name "End M1:1" -lock 1
+wave cursor add -time 171425ns -name "Start" -lock 1
+wave cursor add -time 216425ns -name "End"   -lock 1
 quietly wave cursor active 1
 configure wave -namecolwidth 185
 configure wave -valuecolwidth 55

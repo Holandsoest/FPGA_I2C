@@ -1,0 +1,3 @@
+--TODO
+--This entity would be an consisting of the following 3 modules
+--                                  AXI slave - registers - i2c_slave.vhd
