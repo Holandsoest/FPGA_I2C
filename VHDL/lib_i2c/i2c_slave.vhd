@@ -20,7 +20,7 @@ entity i2c_slave is
       
         O_data_response_ready : out std_logic;
         I_data_response_valid : in  std_logic;
-        I_data_response       : in  std_logic_vector(8 downto 0);
+        I_data_response       : in  std_logic_vector(9 downto 0);
       
         O_I2C_SDA             : out std_logic;--The 1 will mean floating up, while a zero means 0.
         I_I2C_SDA             : in  std_logic;
@@ -214,10 +214,14 @@ begin
                         S_responding <= "11";
                         V_data := I_data_response(7 downto 0);
                         V_previous_data_response_ready := '0';
+
+                        if I_data_response(9) = '0' then--Read the ACK suppressor
+                            V_data_match_ack := true;
+                        end if;
                     else
                         V_previous_data_response_ready := '1';
+                        V_data_match_ack := true;
                     end if;
-                    V_data_match_ack := true;
                 else
                     V_previous_data_response_ready := '1';
                 end if;

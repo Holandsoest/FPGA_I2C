@@ -33,13 +33,13 @@ architecture i2c_tb_RTL of i2c_tb is
     
     signal S1_in_ready  : std_logic;
     signal S1_in_valid  : std_logic;
-    signal S1_in_data   : std_logic_vector(8 downto 0);
+    signal S1_in_data   : std_logic_vector(9 downto 0);
     signal S1_out_ready : std_logic;
     signal S1_out_valid : std_logic;
     signal S1_out_data  : std_logic_vector(7 downto 0);
     signal S1_SDA       : std_logic;
 
-    type S1_buff is array (natural range <>) of std_logic_vector(8 downto 0);
+    type S1_buff is array (natural range <>) of std_logic_vector(9 downto 0);
     signal RS1_responses          : S1_buff(0 to 1);--0 will be send first
 begin
     I2C_SCL <= M1_SCL;
@@ -210,15 +210,21 @@ begin
             if S1_out_valid = '1' and V_responses_ihasdata = 0 then--if new data available, the buffer is empty
                 --Set the new V_responses_ihasdata value
                 case S1_out_data is
-                                                                                                                                      --┌ 0: only send ACK, but do not send/schedule data,  1: Send ACK and also send data            (discussed below this line).
-                                                                                                                                      --│    ┌┬ This is the data that will be send, contents only matter when it is preceded with '1' (discussed above this line).
-                                                                                                                                      --│    ││                                                          ┌ The amount of data you assigned as a natural
-                    when x"11"                                                                                  => RS1_responses(0) <= '0'&x"00";                                V_responses_ihasdata := 1;
-                    when x"12" | x"13" | x"14" | x"15" | x"16" | x"17" | x"18" | x"19" | x"1A" | x"1B" | x"1C"  => RS1_responses(0) <= '0'&x"00";                                V_responses_ihasdata := 1;
-                    when x"1D"                                                                                  => RS1_responses(0) <= '1'&x"AB"; RS1_responses(1) <= '1'&x"CD"; V_responses_ihasdata := 2;
+                                                                                                                                                  --┌ 0: only send ACK, but do not send/schedule data,  1: Send ACK and also send data            (discussed below this line).
+                                                                                                                                                  --│    ┌┬ This is the data that will be send, contents only matter when it is preceded with '1' (discussed above this line).
+                                                                                                                                                  --│    ││                                                                      ┌ The amount of data you assigned as a natural
+                    when x"11"                                                                                  => RS1_responses(0)(8 downto 0) <= '0'&x"00";                                            V_responses_ihasdata := 1;
+                    when x"12" | x"13" | x"14" | x"15" | x"16" | x"17" | x"18" | x"19" | x"1A" | x"1B" | x"1C"  => RS1_responses(0)(8 downto 0) <= '0'&x"00";                                            V_responses_ihasdata := 1;
+                    when x"1D"                                                                                  => RS1_responses(0)(8 downto 0) <= '1'&x"AB"; RS1_responses(1)(8 downto 0) <= '1'&x"CD"; V_responses_ihasdata := 2;
                     when others                                                                                 => NULL;--This is not a response and results into a NACK.
                 end case;
                 S1_in_valid <= '0';
+
+                --Place ACK suppressors
+                RS1_responses(0)(9) <= '0';
+                for i in 1 to RS1_responses'high loop
+                    RS1_responses(i)(9) <= '1';
+                end loop;
             
             --Send data
             elsif (    V_ihasdata) and S1_in_ready = '1' and V_responses_ihasdata /= 0 then--If we have data out that is captured and there is data left to send
@@ -230,7 +236,7 @@ begin
                 V_responses_ihasdata := V_responses_ihasdata -1;
 
             elsif (    V_ihasdata) and S1_in_ready = '1'                               then--If we have data out that is captured
-                S1_in_data <= '0'&x"00";
+                S1_in_data <= (others=>'0');
                 V_ihasdata := false;
 
             elsif (not V_ihasdata) and                       V_responses_ihasdata /= 0 then--If we don't have data out that is captured and there is data left to send
