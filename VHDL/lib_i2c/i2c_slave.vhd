@@ -44,6 +44,7 @@ architecture i2c_slave_RTL of i2c_slave is
     signal S_i2c_sda_address_match : std_logic;
     signal S_i2c_sda_data_match    : std_logic;
     signal S_i2c_sda_response      : std_logic;
+    signal S_responding            : std_logic_vector(1 downto 0);  -- "00" when NOT "responding" with `S_i2c_sda_response`, it stops the slave from listening from its own SDA influence.
 begin
 
     --This process turn all the SCL,SDA data into: A state, and a data-register that should be processed when flip changes state.
@@ -55,7 +56,7 @@ begin
             S_i2c_state                 <= not_started;
             S_i2c_incoming_data         <= (others => '0');
             S_i2c_incoming_data_flip    <= '0';
-            S_i2c_incoming_data_counter <=  7;
+            S_i2c_incoming_data_counter <=  0;
             S_i2c_inactivity_counter    <= C_i2c_clock_divider_half+1;
 
             V_previous_I_I2C_SCL        := '1'; -- Initialize previous SCL state
@@ -70,25 +71,25 @@ begin
                 end if;
                 
                 case S_i2c_incoming_data_counter is
-                    when 7 =>   S_i2c_incoming_data(7) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 6;
-                    when 6 =>   S_i2c_incoming_data(6) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 5;
-                    when 5 =>   S_i2c_incoming_data(5) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 4;
-                    when 4 =>   S_i2c_incoming_data(4) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 3;
-                    when 3 =>   S_i2c_incoming_data(3) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 2;
-                    when 2 =>   S_i2c_incoming_data(2) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 1;
-                    when 1 =>   S_i2c_incoming_data(1) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 0;
-                    when 0 =>   S_i2c_incoming_data(0) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 8;
+                    when 0 =>   S_i2c_incoming_data(7) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 1;
+                    when 1 =>   S_i2c_incoming_data(6) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 2;
+                    when 2 =>   S_i2c_incoming_data(5) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 3;
+                    when 3 =>   S_i2c_incoming_data(4) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 4;
+                    when 4 =>   S_i2c_incoming_data(3) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 5;
+                    when 5 =>   S_i2c_incoming_data(2) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 6;
+                    when 6 =>   S_i2c_incoming_data(1) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 7;
+                    when 7 =>   S_i2c_incoming_data(0) <= I_I2C_SDA;    S_i2c_incoming_data_counter <= 8;
                         if S_i2c_state = started then--If we have not have started yet, then this is an address byte.
                             if S_i2c_incoming_data = GC_i2c_address then--Note down if it is our address.
                                 S_i2c_state <= started_ours;
                             else
                                 S_i2c_state <= started_not_ours;
                             end if;
-                        elsif S_i2c_state = started_ours then
+                        elsif S_i2c_state = started_ours and S_responding = "00" then--If it is ours then send it, unless we are talking, then we should not listen.
                             S_i2c_incoming_data_flip <= not S_i2c_incoming_data_flip;--Send this data up and away to be processed.
                         end if;
                         
-                    when others => S_i2c_incoming_data_counter <= 7;-- this happens when ack/nack, and here we prepare for the MSB of the next data also.
+                    when others => S_i2c_incoming_data_counter <= 0;-- this happens when ack/nack, and here we prepare for the MSB of the next data also.
                 end case;
 
             elsif I_I2C_SCL = '0' then
@@ -136,8 +137,7 @@ begin
         variable V_last_state         : T_i2c_state;-- To detect if our address is called for ACK.
         variable V_previous_I_I2C_SCL : std_logic;  -- To detect falling edge of SCL.
 
-        variable V_data     : std_logic_vector (8 downto 0);
-        variable V_ihasdata : natural range 0 to 8;
+        variable V_data     : std_logic_vector (7 downto 0);
 
         variable V_data_match_ack : boolean;
 
@@ -150,6 +150,7 @@ begin
             S_i2c_sda_address_match <= '1';
             S_i2c_sda_data_match    <= '1';
             S_i2c_sda_response      <= '1';
+            S_responding            <= "00";
 
             V_last_state := not_started;
             V_previous_I_I2C_SCL := '0';
@@ -184,17 +185,17 @@ begin
 
 
                 -- if we have data then send it
-                if V_ihasdata /= 0 then
-                    case V_ihasdata is
-                        when 8 =>      S_i2c_sda_response <= V_data(7);    V_ihasdata := 7; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 8" severity failure;
-                        when 7 =>      S_i2c_sda_response <= V_data(6);    V_ihasdata := 6; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 7" severity failure;
-                        when 6 =>      S_i2c_sda_response <= V_data(5);    V_ihasdata := 5; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 6" severity failure;
-                        when 5 =>      S_i2c_sda_response <= V_data(4);    V_ihasdata := 4; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 5" severity failure;
-                        when 4 =>      S_i2c_sda_response <= V_data(3);    V_ihasdata := 3; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 4" severity failure;
-                        when 3 =>      S_i2c_sda_response <= V_data(2);    V_ihasdata := 2; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 3" severity failure;
-                        when 2 =>      S_i2c_sda_response <= V_data(1);    V_ihasdata := 1; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 2" severity failure;
-                        when 1 =>      S_i2c_sda_response <= V_data(0);    V_ihasdata := 0; report "i2c_slave.vhd/i2c_slave/Response/DEBUG TIME! 1" severity failure;
-                        when others => S_i2c_sda_response <= '1';          V_ihasdata := 0;     report "i2c_slave.vhd/i2c_slave/Response/V_ihasdata unexpected value!" severity failure;-- TODO: is it really impossible to be here?
+                if S_responding /= "00" then
+                    case S_i2c_incoming_data_counter is
+                        when 0 =>      S_i2c_sda_response <= V_data(7);
+                        when 1 =>      S_i2c_sda_response <= V_data(6);
+                        when 2 =>      S_i2c_sda_response <= V_data(5);
+                        when 3 =>      S_i2c_sda_response <= V_data(4);
+                        when 4 =>      S_i2c_sda_response <= V_data(3);
+                        when 5 =>      S_i2c_sda_response <= V_data(2);
+                        when 6 =>      S_i2c_sda_response <= V_data(1);
+                        when 7 =>      S_i2c_sda_response <= V_data(0);    S_responding <= "10";
+                        when others => S_i2c_sda_response <= '1';       if S_responding  = "10" then S_responding <= "00"; end if;
                     end case;
                 else
                     S_i2c_sda_response <= '1';
@@ -207,17 +208,16 @@ begin
 
 
             -- If we don't have data and there is data, and next bit is the first one.
-            if V_ihasdata = 0 and S_i2c_incoming_data_counter = 7 then
-                if I_data_response_valid = '1' then
+            if S_responding = "00" and S_i2c_incoming_data_counter = 8 then
+                if I_data_response_valid = '1' and V_previous_data_response_ready = '1' then
                     if I_data_response(8) = '1' then
-                        V_ihasdata := 8;
-                        V_data := I_data_response;
-                        V_previous_data_response_ready := not V_previous_data_response_ready;
+                        S_responding <= "11";
+                        V_data := I_data_response(7 downto 0);
+                        V_previous_data_response_ready := '0';
                     else
                         V_previous_data_response_ready := '1';
                     end if;
                     V_data_match_ack := true;
-                    V_previous_data_response_ready := not V_previous_data_response_ready;
                 else
                     V_previous_data_response_ready := '1';
                 end if;

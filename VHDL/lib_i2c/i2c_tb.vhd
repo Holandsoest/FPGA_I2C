@@ -210,9 +210,9 @@ begin
             if S1_out_valid = '1' and V_responses_ihasdata = 0 then--if new data available, the buffer is empty
                 --Set the new V_responses_ihasdata value
                 case S1_out_data is
-                                                                                                                                    --┌ 0: only send ACK, but do not send/schedule data,  1: Send ACK and also send data            (discussed below this line).
-                                                                                                                                    --│    ┌┬ This is the data that will be send, contents only matter when it is preceded with '1' (discussed above this line).
-                                                                                                                                    --│    ││                                                        ┌ The amount of data you assigned as a natural
+                                                                                                                                      --┌ 0: only send ACK, but do not send/schedule data,  1: Send ACK and also send data            (discussed below this line).
+                                                                                                                                      --│    ┌┬ This is the data that will be send, contents only matter when it is preceded with '1' (discussed above this line).
+                                                                                                                                      --│    ││                                                          ┌ The amount of data you assigned as a natural
                     when x"11"                                                                                  => RS1_responses(0) <= '0'&x"00";                                V_responses_ihasdata := 1;
                     when x"12" | x"13" | x"14" | x"15" | x"16" | x"17" | x"18" | x"19" | x"1A" | x"1B" | x"1C"  => RS1_responses(0) <= '0'&x"00";                                V_responses_ihasdata := 1;
                     when x"1D"                                                                                  => RS1_responses(0) <= '1'&x"AB"; RS1_responses(1) <= '1'&x"CD"; V_responses_ihasdata := 2;
@@ -230,6 +230,7 @@ begin
                 V_responses_ihasdata := V_responses_ihasdata -1;
 
             elsif (    V_ihasdata) and S1_in_ready = '1'                               then--If we have data out that is captured
+                S1_in_data <= '0'&x"00";
                 V_ihasdata := false;
 
             elsif (not V_ihasdata) and                       V_responses_ihasdata /= 0 then--If we don't have data out that is captured and there is data left to send
